@@ -1,4 +1,5 @@
 import express from "express";
+import { request } from "http";
 // import http from "node.http";
 
 // const httpApp = http.createServer((request, response) => {
@@ -7,7 +8,7 @@ import express from "express";
 const app = express();
 // use(express());
 
-const atrists = [
+const artists = [
   {
     id: 1,
     name: "James Brown",
@@ -65,7 +66,41 @@ const atrists = [
 ];
 
 app.get("/", (request, response) => {
-  response.json(atrists);
+  response.json("Here is something");
+});
+
+app.get("/artists", (request, response) => {
+  response.json(artists);
+});
+
+app.get("/favorites", (request, response) => {
+  response.json("GET FAVORITES");
+});
+
+app.post("/artists", (request, response) => {
+  const body = request.body;
+  console.log(body);
+  response.json("POST ARTISTS");
+});
+
+app.post("/favorites", (request, response) => {
+  response.json("POST FAVORITES");
+});
+
+app.put("/artists", (request, response) => {
+  response.json("PUT ARTISTS");
+});
+
+app.put("/favorites", (request, response) => {
+  response.json("PUT FAVORITES");
+});
+
+app.delete("/artists", (request, response) => {
+  response.json("DELETE ARTISTS");
+});
+
+app.delete("/favorites", (request, response) => {
+  response.json("GET FAVORITES");
 });
 
 app.listen(3000, () => {
