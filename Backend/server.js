@@ -6,7 +6,7 @@ import { request } from "http";
 // if(request.url === "/" && response.method === GET){}});
 
 const app = express();
-// use(express());
+app.use(express.json());
 
 const artists = [
   {
@@ -73,35 +73,46 @@ app.get("/artists", (request, response) => {
   response.json(artists);
 });
 
-app.get("/favorites", (request, response) => {
-  response.json("GET FAVORITES");
-});
+// app.get("/favorites", (request, response) => {
+//   response.json("GET FAVORITES");
+// });
 
 app.post("/artists", (request, response) => {
   const body = request.body;
   console.log(body);
-  response.json("POST ARTISTS");
+  body.id = new Date().getDate();
+  artists.push(body);
+  response.json(artists);
 });
 
-app.post("/favorites", (request, response) => {
-  response.json("POST FAVORITES");
+// app.post("/favorites", (request, response) => {
+//   response.json("POST FAVORITES");
+// });
+
+app.put("/artists/:artistId", (request, response) => {
+  const id = Number(request.params.artistId);
+  console.log(id);
+  const formerArtist = artists.find((artist) => artist.id === id);
+  console.log(formerArtist);
+  const body = request.body;
+  console.log(body);
+
+  formerArtist.name = body.name;
+
+  response.json(artists);
 });
 
-app.put("/artists", (request, response) => {
-  response.json("PUT ARTISTS");
-});
+// app.put("/favorites", (request, response) => {
+//   response.json("PUT FAVORITES");
+// });
 
-app.put("/favorites", (request, response) => {
-  response.json("PUT FAVORITES");
-});
+// app.delete("/artists", (request, response) => {
+//   response.json("DELETE ARTISTS");
+// });
 
-app.delete("/artists", (request, response) => {
-  response.json("DELETE ARTISTS");
-});
-
-app.delete("/favorites", (request, response) => {
-  response.json("GET FAVORITES");
-});
+// app.delete("/favorites", (request, response) => {
+//   response.json("GET FAVORITES");
+// });
 
 app.listen(3000, () => {
   console.log("Det hele køre og spiller!");
