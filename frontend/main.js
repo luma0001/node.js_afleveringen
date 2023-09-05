@@ -12,23 +12,25 @@ function initApp() {
 
 function displayAllArtists() {
   updateArtistsList();
-  updateAritstsGrid();
+  // updateAritstsGrid();
 }
 
 async function updateArtistsList() {
   artists = await fetchArtists();
   console.log(artists);
+  console.log(typeof artists);
+  updateAritstsGrid();
 }
 
 function updateAritstsGrid() {
   document.querySelector("#artists_overview_section").innerHTML = "";
-  // artists.forEach(displayAritst);
-  for (const aritst of artists) {
-    displayAllArtists(aritst);
+  // artists.forEach(displayArtist);
+  for (const artist of artists) {
+    displayArtist(artist);
   }
 }
 
-function displayAritst(artist) {
+function displayArtist(artist) {
   const artistHTML =
     /*html*/
     `
@@ -36,9 +38,9 @@ function displayAritst(artist) {
     "image"
     Name:${artist.name}
     Date of Birth:${artist.birthdate}
-    Active since:${artists.activeSince}
+    Active since:${artist.activeSince}
     Genres:${artist.genres}
-    Lables:${artist.lables}
+    Lables: ${artist.labels}
     Website:${artist.website}
     Description:${artist.shortDescription}
     <button class="update_btn">Update</button>
@@ -51,4 +53,8 @@ function displayAritst(artist) {
   // document
   //   .querySelector("#artists_overview_section div:last-child")
   //   .addEventListener("click", update_btn_clicked());
+}
+
+function getLables(artist) {
+  //loop on all possible lables...
 }
