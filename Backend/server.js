@@ -11,62 +11,62 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const artists = [
-  {
-    id: 1,
-    name: "James Brown",
-    birthdate: "1933-05-03",
-    activeSince: "1954",
-    genres: ["soul", "R&B", "funk"],
-    labels: [
-      "Federal",
-      "King",
-      "Smash",
-      "People",
-      "Polydor",
-      "TK",
-      "Scotti",
-      "Bros",
-      "Mercury",
-      "Republic",
-      "Bros",
-      "UMe",
-      "A&M",
-    ],
-    website: "www.jamesbrow.com",
-    image:
-      "https://cdn.britannica.com/34/197534-050-83C616C4/James-Brown-1991.jpg",
-    shortDescription:
-      "James Brown was and American musician. He was known as 'the grandfather of soul' and 'the hardest working man in show business'. James died 2006.",
-  },
-  {
-    id: 2,
-    name: "James Brown",
-    birthdate: "1933-05-03",
-    activeSince: "1954",
-    genres: ["soul", "R&B", "funk"],
-    labels: [
-      "Federal",
-      "King",
-      "Smash",
-      "People",
-      "Polydor",
-      "TK",
-      "Scotti",
-      "Bros",
-      "Mercury",
-      "Republic",
-      "Bros",
-      "UMe",
-      "A&M",
-    ],
-    website: "www.jamesbrow.com",
-    image:
-      "https://cdn.britannica.com/34/197534-050-83C616C4/James-Brown-1991.jpg",
-    shortDescription:
-      "James Brown was and American musician. He was known as 'the grandfather of soul' and 'the hardest working man in show business'. James died 2006.",
-  },
-];
+// const artists = [
+//   {
+//     id: 1,
+//     name: "James Brown",
+//     birthdate: "1933-05-03",
+//     activeSince: "1954",
+//     genres: ["soul", "R&B", "funk"],
+//     labels: [
+//       "Federal",
+//       "King",
+//       "Smash",
+//       "People",
+//       "Polydor",
+//       "TK",
+//       "Scotti",
+//       "Bros",
+//       "Mercury",
+//       "Republic",
+//       "Bros",
+//       "UMe",
+//       "A&M",
+//     ],
+//     website: "www.jamesbrow.com",
+//     image:
+//       "https://cdn.britannica.com/34/197534-050-83C616C4/James-Brown-1991.jpg",
+//     shortDescription:
+//       "James Brown was and American musician. He was known as 'the grandfather of soul' and 'the hardest working man in show business'. James died 2006.",
+//   },
+//   {
+//     id: 2,
+//     name: "James Brown",
+//     birthdate: "1933-05-03",
+//     activeSince: "1954",
+//     genres: ["soul", "R&B", "funk"],
+//     labels: [
+//       "Federal",
+//       "King",
+//       "Smash",
+//       "People",
+//       "Polydor",
+//       "TK",
+//       "Scotti",
+//       "Bros",
+//       "Mercury",
+//       "Republic",
+//       "Bros",
+//       "UMe",
+//       "A&M",
+//     ],
+//     website: "www.jamesbrow.com",
+//     image:
+//       "https://cdn.britannica.com/34/197534-050-83C616C4/James-Brown-1991.jpg",
+//     shortDescription:
+//       "James Brown was and American musician. He was known as 'the grandfather of soul' and 'the hardest working man in show business'. James died 2006.",
+//   },
+// ];
 
 // Så vi skal læse ind og ud af --->
 // no parse, but stringiy.json.
@@ -76,12 +76,14 @@ app.get("/", (request, response) => {
 
 app.get("/artists", async (request, response) => {
   const artistsJSON = await fs.readFile("artists.json");
-  const artistsList = await JSON.parse(artistsJSON);
+  const artists = await JSON.parse(artistsJSON);
   // console.log(artistList);
-  response.json(artistsList);
+  response.json(artists);
 });
 
-app.get("/artists/:id", (request, response) => {
+app.get("/artists/:id", async (request, response) => {
+  const artistsJSON = await fs.readFile("artists.json");
+  const artists = await JSON.parse(artistsJSON);
   const id = Number(request.params.id);
   const artist = artists.find((artistDude) => artistDude.id === id);
   console.log(artist);
@@ -106,11 +108,15 @@ app.get("/artists/:id", (request, response) => {
 //   response.json("GET FAVORITES");
 // });
 
-app.post("/artists", (request, response) => {
-  const body = request.body;
-  console.log(body);
-  body.id = new Date().getDate();
-  artists.push(body);
+app.post("/artists", async (request, response) => {
+  const artistsJSON = await fs.readFile("artists.json");
+  const artists = await JSON.parse(artistsJSON);
+  const newAritst = request.body;
+  newAritst.id = new Date().getTime();
+  console.log(newAritst);
+  artists.push(newAritst);
+  console.log(artists);
+  fs.writeFile("artists.json", JSON.stringify(artists));
   response.json(artists);
 });
 
@@ -118,7 +124,9 @@ app.post("/artists", (request, response) => {
 //   response.json("POST FAVORITES");
 // });
 
-app.put("/artists/:artistId", (request, response) => {
+app.put("/artists/:artistId", async (request, response) => {
+  const artistsJSON = await fs.readFile("artists.json");
+  const artists = await JSON.parse(artistsJSON);
   const id = Number(request.params.artistId);
   console.log(id);
   const formerArtist = artists.find((artist) => artist.id === id);
@@ -138,6 +146,7 @@ app.put("/artists/:artistId", (request, response) => {
   if (!formerArtist) {
     response.status(404).json("Error: User does not exist");
   } else {
+    fs.writeFile("artists.json", JSON.stringify(artists));
     response.json(artists);
   }
 });
@@ -146,7 +155,10 @@ app.put("/artists/:artistId", (request, response) => {
 //   response.json("PUT FAVORITES");
 // });
 
-app.delete("/artists/:artistId", (request, response) => {
+app.delete("/artists/:artistId", async(request, response) => {
+    const artistsJSON = await fs.readFile("artists.json");
+  const artists = await JSON.parse(artistsJSON);
+  
   const id = Number(request.params.artistId);
   const artist = artists.find((artist) => artist.id === id);
   artists.splice(artists.indexOf(artist), 1);
@@ -154,6 +166,8 @@ app.delete("/artists/:artistId", (request, response) => {
   if (!artist) {
     response.status(404).json("Error: user does not exists");
   } else {
+  
+    fs.writeFile("artists.json", JSON.stringify(artists))
     response.json(artists);
   }
 });
