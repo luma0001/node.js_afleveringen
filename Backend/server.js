@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import fs from "fs/promises";
 import { request } from "http";
 // import http from "node.http";
 
@@ -67,15 +68,19 @@ const artists = [
   },
 ];
 
+// Så vi skal læse ind og ud af --->
+// no parse, but stringiy.json.
 app.get("/", (request, response) => {
   response.json("Here is something");
 });
 
-app.get("/artists", (request, response) => {
-  response.json(artists);
+app.get("/artists", async (request, response) => {
+  const artistsJSON = await fs.readFile("artists.json");
+  const artistsList = await JSON.parse(artistsJSON);
+  // console.log(artistList);
+  response.json(artistsList);
 });
 
-// GET specific artist - based on id.
 app.get("/artists/:id", (request, response) => {
   const id = Number(request.params.id);
   const artist = artists.find((artistDude) => artistDude.id === id);
@@ -130,7 +135,11 @@ app.put("/artists/:artistId", (request, response) => {
   formerArtist.image = body.image;
   formerArtist.shortDescription = body.shortDescription;
 
-  response.json(artists);
+  if (!formerArtist) {
+    response.status(404).json("Error: User does not exist");
+  } else {
+    response.json(artists);
+  }
 });
 
 // app.put("/favorites", (request, response) => {
@@ -141,7 +150,12 @@ app.delete("/artists/:artistId", (request, response) => {
   const id = Number(request.params.artistId);
   const artist = artists.find((artist) => artist.id === id);
   artists.splice(artists.indexOf(artist), 1);
-  response.json(artists);
+
+  if (!artist) {
+    response.status(404).json("Error: user does not exists");
+  } else {
+    response.json(artists);
+  }
 });
 
 // app.delete("/favorites", (request, response) => {
