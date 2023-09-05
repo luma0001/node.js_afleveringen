@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { request } from "http";
 // import http from "node.http";
 
@@ -7,6 +8,7 @@ import { request } from "http";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const artists = [
   {
@@ -73,6 +75,28 @@ app.get("/artists", (request, response) => {
   response.json(artists);
 });
 
+// GET specific artist - based on id.
+app.get("/artists/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const artist = artists.find((artistDude) => artistDude.id === id);
+  console.log(artist);
+
+  if (!artist) {
+    response.status(404).json("The artist id was not found!");
+  } else {
+    response.json(artist);
+  }
+
+  // if (!result) {
+  //   response.status(404);
+  //   {
+  //     response.json("Error!");
+  //   }
+  // } else {
+  //   response.json(artist);
+  // }
+});
+
 // app.get("/favorites", (request, response) => {
 //   response.json("GET FAVORITES");
 // });
@@ -98,6 +122,13 @@ app.put("/artists/:artistId", (request, response) => {
   console.log(body);
 
   formerArtist.name = body.name;
+  formerArtist.birthdate = body.birthdate;
+  formerArtist.activeSince = body.activeSince;
+  formerArtist.genres = body.genres;
+  formerArtist.labels = body.labels;
+  formerArtist.website = body.website;
+  formerArtist.image = body.image;
+  formerArtist.shortDescription = body.shortDescription;
 
   response.json(artists);
 });
@@ -106,9 +137,12 @@ app.put("/artists/:artistId", (request, response) => {
 //   response.json("PUT FAVORITES");
 // });
 
-// app.delete("/artists", (request, response) => {
-//   response.json("DELETE ARTISTS");
-// });
+app.delete("/artists/:artistId", (request, response) => {
+  const id = Number(request.params.artistId);
+  const artist = artists.find((artist) => artist.id === id);
+  artists.splice(artists.indexOf(artist), 1);
+  response.json(artists);
+});
 
 // app.delete("/favorites", (request, response) => {
 //   response.json("GET FAVORITES");
