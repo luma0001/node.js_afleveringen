@@ -10,9 +10,82 @@
     <main>
       <header>THIS IS OUR HEADDER</header>
       <section id="filters_section">Filters</section>
-      <section id="artists_overview_section">Show Artists</section>
-      <section id="new_artists_form_section">New Artist</section>
-      <section id="update_artists_form_section">Update Artist</section>
+      <section id="artists_overview_section" class="grid-container">
+        Show Artists
+      </section>
+      <section id="new_artist_form_section">
+        New Artist
+        <article id="new_artist_preview"></article>
+        <article id="new artist_form">
+          <form id="create_artist_form">
+            <legend>
+              <label for="new_artist_name">Name</label>
+              <input type="text" id="new_artist_name" name="name" />
+
+              <label for="new_artist_image_link">Image Link</label>
+              <input type="text" id="new_artist_image_link" name="image" />
+
+              <label for="new_artist_birthdate">Birthdate</label>
+              <input type="text" id="new_artist_birthdate" name="birthdate" />
+
+              <label for="new_artist_active_since">Active Since</label>
+              <input type="" id="new_artist_active_since" name="activeSince" />
+
+              <label for="new_artist_genres">Genres</label>
+              <input type="text" id="new_artist_genres" name="genres" />
+
+              <label for="new_artist_lables">Lables</label>
+              <input type="text" id="new_artist_lables" name="labels" />
+
+              <label for="new_artist_website">Website</label>
+              <input type="text" id="new_artist_website" name="website" />
+
+              <label for="new_artist_description">Description</label>
+              <input
+                type="text"
+                id="new_artist_description"
+                name="description"
+              />
+            </legend>
+            <button>Create</button>
+          </form>
+        </article>
+      </section>
+
+      <section id="update_artists_form_section">
+        Update Artist
+          <form id="update_arist_form">
+            <label for="aritst_update_name">Update Name</label>
+            <input type="text" id="aritst_update_name" name="name" />
+
+            <label for="aritst_update_image_link">Update Image Link</label>
+            <input type="text" id="aritst_update_image_link" name="image" />
+
+            <label for="aritst_update_birthdate">Update Birthdate</label>
+            <input type="text" id="aritst_update_birthdate" name="birthdate" />
+
+            <label for="aritst_update_active_since">Update Active Since</label>
+            <input type="" id="aritst_update_active_since" name="activeSince" />
+
+            <label for="aritst_update_genres">Update Genres</label>
+            <input type="text" id="aritst_update_genres" name="genres" />
+
+            <label for="aritst_update_lables">Update Lables</label>
+            <input type="text" id="aritst_update_lables" name="labels" />
+
+            <label for="aritst_update_website">Update Website</label>
+            <input type="text" id="aritst_update_website" name="website" />
+
+            <label for="aritst_update_description">Update Description</label>
+            <input
+              type="text"
+              id="aritst_update_description"
+              name="description"
+            />
+            <button>update</button>
+          </form>
+      </section>
+
       <footer>THIS IS OUR FOOTER</footer>
     </main>
     <script src="main.js" type="module"></script>
