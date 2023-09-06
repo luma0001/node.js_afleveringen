@@ -4,6 +4,8 @@ import { fetchArtists } from "./restFunctions.js";
 
 window.addEventListener("load", initApp);
 
+////////////////////////// global variables //////////////////////////
+const endpoint = "http://localhost:3000";
 let artists;
 
 function initApp() {
@@ -78,6 +80,8 @@ function delete_btn_clicked(id) {
   console.log(id);
 }
 
+////////////////////////// create new artist //////////////////////////
+
 function new_artist_form_submitted(event) {
   event.preventDefault();
   console.log("new artist form submitted");
@@ -126,9 +130,26 @@ function createNewArtistsObject(
     shortDescription,
   };
 
+  //* Bedre navngivning...
+  uploadNewUser(newArtistObject);
   //Skal vi
-  artists.push(newArtistObject);
-  updateAritstsGrid();
+}
+
+async function uploadNewUser(artistForUpdating) {
+  const artistJson = JSON.stringify(artistForUpdating);
+  const response = await fetch(`${endpoint}/artists`, {
+    method: "POST",
+    body: artistJson,
+    headers: { "Content-Type": "application/JSON" },
+  });
+  if (response.ok) {
+    // if success, update the users grid
+    // artists.push(newArtistObject);
+    updateAritstsGrid();
+   
+    // and scroll to top
+    // scrollToTop();
+  }
 }
 
 function generateNewId() {
