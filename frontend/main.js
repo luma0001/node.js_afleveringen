@@ -70,12 +70,7 @@ function displayArtist(artist) {
   //Checkbox for favorites! ...favorites: true/false.
 }
 
-function update_btn_clicked(artist) {
-  console.log("update clicked");
-  console.log(artist);
-}
-
-////////////////////////// create new artist //////////////////////////
+////////////////////////// create artist functions //////////////////////////
 
 function new_artist_form_submitted(event) {
   event.preventDefault();
@@ -149,6 +144,27 @@ async function postNewUser(artistForUpdating) {
     // and scroll to top
     // scrollToTop();
   }
+}
+
+////////////////////////// update related functions //////////////////////////
+
+function update_btn_clicked(artist) {
+  console.log("update clicked");
+  console.log(artist);
+  updateArtistForm(artist);
+}
+
+function updateArtistForm(artist) {
+  document.querySelector("#aritst_update_name").value = artist.name;
+  document.querySelector("#aritst_update_image_link").value = artist.image;
+  document.querySelector("#aritst_update_birthdate").value = artist.birthdate;
+  document.querySelector("#aritst_update_active_since").value =
+    artist.activeSince;
+  document.querySelector("#aritst_update_genres").value = artist.genres;
+  document.querySelector("#aritst_update_lables").value = artist.labels;
+  document.querySelector("#aritst_update_website").value = artist.website;
+  document.querySelector("#aritst_update_description").value =
+    artist.shortDescription;
 }
 
 ////////////////////////// delete related functions //////////////////////////
