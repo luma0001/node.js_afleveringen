@@ -34,10 +34,10 @@ async function updateArtistsList() {
   artists = await fetchArtists();
   console.log(artists);
   console.log(typeof artists);
-  updateAritstsGrid();
+  updateArtistsGrid();
 }
 
-function updateAritstsGrid() {
+function updateArtistsGrid() {
   document.querySelector("#artists_overview_section").innerHTML = "";
   // artists.forEach(displayArtist);
   for (const artist of artists) {
@@ -79,8 +79,7 @@ function displayArtist(artist) {
 ////////////////////////// create artist functions //////////////////////////
 
 function new_artist_form_submitted(event) {
-  event.preventDefault();
-  console.log("new artist form submitted");
+event.preventDefault();  console.log("new artist form submitted");
 
   const form = event.target;
   const name = form.name.value;
@@ -145,7 +144,7 @@ async function postNewUser(artistForUpdating) {
   if (response.ok) {
     // if success, update the users grid
     // artists.push(newArtistObject);
-    updateAritstsGrid();
+    updateArtistsList();
 
     // and scroll to top
     // scrollToTop();
@@ -174,17 +173,9 @@ function updateArtistForm(artist) {
     artist.shortDescription;
 
   //...den skal ikke altid være aktiv jo....
-  async function putUpdatedArtist() {
-    // const updatedArtist = 
-    const promise = await fetch(`${endpoint}/artist/${id}`, {
-      method: "PUT",
-      header: { "Content-Type": "application/json" },
-      body: //updatedArtist??,
-    });
-  }
 }
 
-function update_artists_form_submitted(event) {
+async function update_artists_form_submitted(event) {
   event.preventDefault();
 
   const updateForm = event.target;
@@ -197,9 +188,20 @@ function update_artists_form_submitted(event) {
   selectedArtist.website = updateForm.website.value;
   selectedArtist.shortDescription = updateForm.description.value;
 
-  console.log(updateForm);
-  console.log("artists updated");
   console.log(selectedArtist);
+  await putUpdatedArtist(selectedArtist);
+}
+
+async function putUpdatedArtist(artist) {
+  const updatedArtist = JSON.stringify(artist);
+  const response = await fetch(`${endpoint}/artists/${artist.id}`, {
+    method: "PUT",
+    body: updatedArtist,
+    header: { "Content-Type": "application/json" },
+  });
+  if(response.ok) {
+    updateArtistsList();
+  }
 }
 
 ////////////////////////// delete related functions //////////////////////////
@@ -215,6 +217,6 @@ async function deleteArtist(id) {
     method: "DELETE",
   });
   if (response.ok) {
-    updateAritstsGrid();
+    updateArtistsList();
   }
 }
