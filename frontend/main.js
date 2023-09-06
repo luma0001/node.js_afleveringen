@@ -134,8 +134,8 @@ function generateNewId() {
   return new Date().getTime();
 }
 
-async function postNewUser(artistForUpdating) {
-  const artistJson = JSON.stringify(artistForUpdating);
+async function postNewUser(newArtist) {
+  const artistJson = JSON.stringify(newArtist);
   const response = await fetch(`${endpoint}/artists`, {
     method: "POST",
     body: artistJson,
@@ -160,18 +160,18 @@ function update_btn_clicked(artist) {
 }
 
 function updateArtistForm(artist) {
-  selectedArtist = artist;
   document.querySelector("#aritst_update_name").value = artist.name;
   document.querySelector("#aritst_update_image_link").value = artist.image;
   document.querySelector("#aritst_update_birthdate").value = artist.birthdate;
   document.querySelector("#aritst_update_active_since").value =
-    artist.activeSince;
+  artist.activeSince;
   document.querySelector("#aritst_update_genres").value = artist.genres;
   document.querySelector("#aritst_update_lables").value = artist.labels;
   document.querySelector("#aritst_update_website").value = artist.website;
   document.querySelector("#aritst_update_description").value =
     artist.shortDescription;
-
+    
+    selectedArtist = artist;
   //...den skal ikke altid være aktiv jo....
 }
 
