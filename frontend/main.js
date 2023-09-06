@@ -7,7 +7,14 @@ window.addEventListener("load", initApp);
 let artists;
 
 function initApp() {
+  activateClickEvents();
   displayAllArtists();
+}
+
+function activateClickEvents() {
+  document
+    .querySelector("#create_artist_form")
+    .addEventListener("submit", new_artist_form_submitted);
 }
 
 function displayAllArtists() {
@@ -57,6 +64,8 @@ function displayArtist(artist) {
   document
     .querySelector("#artists_overview_section article:last-child .delete_btn")
     .addEventListener("click", () => delete_btn_clicked(artist.id));
+
+  //Checkbox for favorites! ...favorites: true/false.
 }
 
 function update_btn_clicked(artist) {
@@ -67,4 +76,61 @@ function update_btn_clicked(artist) {
 function delete_btn_clicked(id) {
   console.log("delete clicked");
   console.log(id);
+}
+
+function new_artist_form_submitted(event) {
+  event.preventDefault();
+  console.log("new artist form submitted");
+
+  const form = event.target;
+  const name = form.name.value;
+  const image = form.image.value;
+  const birthdate = form.birthdate.value;
+  const activeSince = form.activeSince.value;
+  const genres = form.genres.value;
+  const labels = form.labels.value;
+  const wesite = form.website.value;
+  const shortDescription = form.description.value;
+
+  createNewArtistsObject(
+    name,
+    image,
+    birthdate,
+    activeSince,
+    genres,
+    labels,
+    wesite,
+    shortDescription
+  );
+}
+
+function createNewArtistsObject(
+  name,
+  image,
+  birthdate,
+  activeSince,
+  genres,
+  labels,
+  website,
+  shortDescription
+) {
+  const newArtistObject = {
+    id: generateNewId(),
+    name,
+    image,
+    birthdate,
+    activeSince,
+    genres,
+    labels,
+    website,
+    shortDescription,
+  };
+
+  //Skal vi
+  artists.push(newArtistObject);
+  updateAritstsGrid();
+}
+
+function generateNewId() {
+  return new Date().getTime();
 }
