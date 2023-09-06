@@ -7,6 +7,7 @@ window.addEventListener("load", initApp);
 ////////////////////////// global variables //////////////////////////
 const endpoint = "http://localhost:3000";
 let artists;
+let selectedArtist;
 
 function initApp() {
   activateClickEvents();
@@ -14,9 +15,14 @@ function initApp() {
 }
 
 function activateClickEvents() {
+  //The submit button for create new artist
   document
     .querySelector("#create_artist_form")
     .addEventListener("submit", new_artist_form_submitted);
+  //The submit button for update aritst
+  document
+    .querySelector("#update_arist_form")
+    .addEventListener("submit", update_artists_form_submitted);
 }
 
 function displayAllArtists() {
@@ -155,6 +161,7 @@ function update_btn_clicked(artist) {
 }
 
 function updateArtistForm(artist) {
+  selectedArtist = artist;
   document.querySelector("#aritst_update_name").value = artist.name;
   document.querySelector("#aritst_update_image_link").value = artist.image;
   document.querySelector("#aritst_update_birthdate").value = artist.birthdate;
@@ -165,6 +172,26 @@ function updateArtistForm(artist) {
   document.querySelector("#aritst_update_website").value = artist.website;
   document.querySelector("#aritst_update_description").value =
     artist.shortDescription;
+
+  //...den skal ikke altid være aktiv jo....
+}
+
+function update_artists_form_submitted(event) {
+  event.preventDefault();
+
+  const updateForm = event.target;
+  selectedArtist.name = updateForm.name.value;
+  selectedArtist.image = updateForm.image.value;
+  selectedArtist.birthdate = updateForm.birthdate.value;
+  selectedArtist.activeSince = updateForm.activeSince.value;
+  selectedArtist.genres = updateForm.genres.value;
+  selectedArtist.labels = updateForm.labels.value;
+  selectedArtist.website = updateForm.website.value;
+  selectedArtist.shortDescription = updateForm.description.value;
+
+  console.log(updateForm);
+  console.log("artists updated");
+  console.log(selectedArtist);
 }
 
 ////////////////////////// delete related functions //////////////////////////
