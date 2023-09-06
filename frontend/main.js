@@ -131,22 +131,22 @@ function createNewArtistsObject(
   };
 
   //* Bedre navngivning...
-  uploadNewUser(newArtistObject);
+  postNewUser(newArtistObject);
   //Skal vi
 }
 
-async function uploadNewUser(artistForUpdating) {
+async function postNewUser(artistForUpdating) {
   const artistJson = JSON.stringify(artistForUpdating);
   const response = await fetch(`${endpoint}/artists`, {
     method: "POST",
     body: artistJson,
-    headers: { "Content-Type": "application/JSON" },
+    headers: { "Content-Type": "application/json" },
   });
   if (response.ok) {
     // if success, update the users grid
     // artists.push(newArtistObject);
     updateAritstsGrid();
-   
+
     // and scroll to top
     // scrollToTop();
   }
