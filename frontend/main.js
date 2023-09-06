@@ -34,8 +34,8 @@ function displayArtist(artist) {
   const artistHTML =
     /*html*/
     `
-    <div class="artists_object">
-    "image"
+    <article class="artists_object">
+    <img src=${artist.image}/>
     Name:${artist.name}
     Date of Birth:${artist.birthdate}
     Active since:${artist.activeSince}
@@ -46,15 +46,25 @@ function displayArtist(artist) {
     <button class="update_btn">Update</button>
     <button class="delete_btn">Delete</button>
     <input class="favorites_checkbox" type="checkbox" value="favorite">
-    </div>`;
+    </article>`;
   document
     .querySelector("#artists_overview_section")
     .insertAdjacentHTML("beforeend", artistHTML);
-  // document
-  //   .querySelector("#artists_overview_section div:last-child")
-  //   .addEventListener("click", update_btn_clicked());
+  document
+    .querySelector("#artists_overview_section article:last-child .update_btn")
+    .addEventListener("click", () => update_btn_clicked(artist));
+
+  document
+    .querySelector("#artists_overview_section article:last-child .delete_btn")
+    .addEventListener("click", () => delete_btn_clicked(artist.id));
 }
 
-function getLables(artist) {
-  //loop on all possible lables...
+function update_btn_clicked(artist) {
+  console.log("update clicked");
+  console.log(artist);
+}
+
+function delete_btn_clicked(id) {
+  console.log("delete clicked");
+  console.log(id);
 }
