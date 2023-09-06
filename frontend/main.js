@@ -174,6 +174,14 @@ function updateArtistForm(artist) {
     artist.shortDescription;
 
   //...den skal ikke altid være aktiv jo....
+  async function putUpdatedArtist() {
+    // const updatedArtist = 
+    const promise = await fetch(`${endpoint}/artist/${id}`, {
+      method: "PUT",
+      header: { "Content-Type": "application/json" },
+      body: //updatedArtist??,
+    });
+  }
 }
 
 function update_artists_form_submitted(event) {
