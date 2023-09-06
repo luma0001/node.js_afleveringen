@@ -75,11 +75,6 @@ function update_btn_clicked(artist) {
   console.log(artist);
 }
 
-function delete_btn_clicked(id) {
-  console.log("delete clicked");
-  console.log(id);
-}
-
 ////////////////////////// create new artist //////////////////////////
 
 function new_artist_form_submitted(event) {
@@ -135,6 +130,10 @@ function createNewArtistsObject(
   //Skal vi
 }
 
+function generateNewId() {
+  return new Date().getTime();
+}
+
 async function postNewUser(artistForUpdating) {
   const artistJson = JSON.stringify(artistForUpdating);
   const response = await fetch(`${endpoint}/artists`, {
@@ -152,6 +151,19 @@ async function postNewUser(artistForUpdating) {
   }
 }
 
-function generateNewId() {
-  return new Date().getTime();
+////////////////////////// delete related functions //////////////////////////
+
+function delete_btn_clicked(id) {
+  console.log("delete clicked");
+  console.log(id);
+  deleteArtist(id);
+}
+
+async function deleteArtist(id) {
+  const response = await fetch(`${endpoint}/artists/${id}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    updateAritstsGrid();
+  }
 }
