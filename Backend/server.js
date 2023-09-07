@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import fs from "fs/promises";
 import { request } from "http";
-// import http from "node.http";
 
 // const httpApp = http.createServer((request, response) => {
 // if(request.url === "/" && response.method === GET){}});
@@ -11,65 +10,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// const artists = [
-//   {
-//     id: 1,
-//     name: "James Brown",
-//     birthdate: "1933-05-03",
-//     activeSince: "1954",
-//     genres: ["soul", "R&B", "funk"],
-//     labels: [
-//       "Federal",
-//       "King",
-//       "Smash",
-//       "People",
-//       "Polydor",
-//       "TK",
-//       "Scotti",
-//       "Bros",
-//       "Mercury",
-//       "Republic",
-//       "Bros",
-//       "UMe",
-//       "A&M",
-//     ],
-//     website: "www.jamesbrow.com",
-//     image:
-//       "https://cdn.britannica.com/34/197534-050-83C616C4/James-Brown-1991.jpg",
-//     shortDescription:
-//       "James Brown was and American musician. He was known as 'the grandfather of soul' and 'the hardest working man in show business'. James died 2006.",
-//   },
-//   {
-//     id: 2,
-//     name: "James Brown",
-//     birthdate: "1933-05-03",
-//     activeSince: "1954",
-//     genres: ["soul", "R&B", "funk"],
-//     labels: [
-//       "Federal",
-//       "King",
-//       "Smash",
-//       "People",
-//       "Polydor",
-//       "TK",
-//       "Scotti",
-//       "Bros",
-//       "Mercury",
-//       "Republic",
-//       "Bros",
-//       "UMe",
-//       "A&M",
-//     ],
-//     website: "www.jamesbrow.com",
-//     image:
-//       "https://cdn.britannica.com/34/197534-050-83C616C4/James-Brown-1991.jpg",
-//     shortDescription:
-//       "James Brown was and American musician. He was known as 'the grandfather of soul' and 'the hardest working man in show business'. James died 2006.",
-//   },
-// ];
-
-// Så vi skal læse ind og ud af --->
-// no parse, but stringiy.json.
 app.get("/", (request, response) => {
   response.json("Here is something");
 });
@@ -156,11 +96,13 @@ app.put("/artists/:artistId", async (request, response) => {
 // });
 
 app.delete("/artists/:artistId", async(request, response) => {
-    const artistsJSON = await fs.readFile("artists.json");
+  
+  const artistsJSON = await fs.readFile("artists.json");
   const artists = await JSON.parse(artistsJSON);
   
   const id = Number(request.params.artistId);
   const artist = artists.find((artist) => artist.id === id);
+
   artists.splice(artists.indexOf(artist), 1);
 
   if (!artist) {
