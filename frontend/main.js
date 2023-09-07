@@ -14,14 +14,14 @@ import {
 
 import { activateClickEvents, activateChangeEvents } from "./events.js";
 
+import { viewFavorites } from "./toggleView.js";
+
 window.addEventListener("load", initApp);
 
 ////////////////////////// global variables //////////////////////////
-const endpoint = "http://localhost:3000";
-// Er det her fy-fy! Globale const's er ok, men globale let's.... ups.
 let artists;
 let selectedArtist;
-let viewFavorites = false;
+// let viewFavorites = false;
 
 function initApp() {
   activateClickEvents();
@@ -29,27 +29,27 @@ function initApp() {
   displayAllArtists();
 }
 
-function favorites_toggle_btn_clicked() {
-  toggleFavoriteView();
-  changeToggleFavoriteBtn();
-  updateArtistsGrid();
-}
+// function favorites_toggle_btn_clicked() {
+//   toggleFavoriteView();
+//   changeToggleFavoriteBtn();
+//   updateArtistsGrid();
+// }
 
-function toggleFavoriteView() {
-  if (viewFavorites === false) {
-    viewFavorites = true;
-  } else {
-    viewFavorites = false;
-  }
-}
+// function toggleFavoriteView() {
+//   if (viewFavorites === false) {
+//     viewFavorites = true;
+//   } else {
+//     viewFavorites = false;
+//   }
+// }
 
-function changeToggleFavoriteBtn() {
-  if (viewFavorites === false) {
-    document.querySelector("#favorites_toggle").textContent = "Show Favorites";
-  } else {
-    document.querySelector("#favorites_toggle").textContent = "Show All";
-  }
-}
+// function changeToggleFavoriteBtn() {
+//   if (viewFavorites === false) {
+//     document.querySelector("#favorites_toggle").textContent = "Show Favorites";
+//   } else {
+//     document.querySelector("#favorites_toggle").textContent = "Show All";
+//   }
+// }
 
 ////////////////////////// helper - sort - variables //////////////////////////
 
@@ -133,8 +133,8 @@ function displayArtist(artist) {
     <button class="update_btn">Update</button>
     <button class="delete_btn">Delete</button>
     <div class="mark_favorite_div">
-    <input class="favorites_checkbox" type="checkbox" value="favorite">
-    </div>
+    <button class="favorites_checkbox">Favorite</button>
+     </div>
     </article>`;
   document
     .querySelector("#artists_overview_section")
@@ -153,15 +153,15 @@ function displayArtist(artist) {
     )
     .addEventListener("change", () => changeFavoriteSatus(artist));
 
-  // // try to style artists....fail
-  // if (artist.isFavorite === true) {
-  //   console.log("fav artist");
-  //   console.log(artist.name);
-  //   // document.querySelector(".favorites_checkbox").checked;
-  //   document
-  //     .querySelector(".mark_favorite_div")
-  //     .classList.add("favoriteMarked");
-  // }
+  // try to style artists....fail
+  if (artist.isFavorite === true) {
+    console.log("fav artist");
+    console.log(artist.name);
+    // document.querySelector(".favorites_checkbox").checked;
+    document
+      .querySelector(".mark_favorite_div")
+      .classList.add("favoriteMarked");
+  }
 
   //changes the checkbox if the artists is marked as favorites
 
@@ -292,7 +292,7 @@ function delete_btn_clicked(id) {
 
 export {
   updateArtistsList,
-  favorites_toggle_btn_clicked,
+  updateArtistsGrid,
   new_artist_form_submitted,
   update_artists_form_submitted,
   sortBySlector,
