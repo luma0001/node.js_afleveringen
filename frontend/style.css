@@ -1,6 +1,10 @@
-/* .favoriteMarked {
-  background-color: goldenrod;
-} */
+header {
+  padding: 1em;
+}
+
+footer {
+  padding: 1em;
+}
 
 .grid_img {
   max-width: 200px;
