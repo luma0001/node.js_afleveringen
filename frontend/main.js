@@ -12,6 +12,8 @@ import {
   deleteArtist,
 } from "./restFunctions.js";
 
+import { activateClickEvents, activateChangeEvents } from "./events.js";
+
 window.addEventListener("load", initApp);
 
 ////////////////////////// global variables //////////////////////////
@@ -28,25 +30,25 @@ function initApp() {
 
 ////////////////////////// Eventlisteners //////////////////////////
 
-function activateClickEvents() {
-  //The submit button for create new artist
-  document
-    .querySelector("#create_artist_form")
-    .addEventListener("submit", new_artist_form_submitted);
-  //The submit button for update aritst
-  document
-    .querySelector("#update_arist_form")
-    .addEventListener("submit", update_artists_form_submitted);
-}
+// function activateClickEvents() {
+//   //The submit button for create new artist
+//   document
+//     .querySelector("#create_artist_form")
+//     .addEventListener("submit", new_artist_form_submitted);
+//   //The submit button for update aritst
+//   document
+//     .querySelector("#update_arist_form")
+//     .addEventListener("submit", update_artists_form_submitted);
+// }
 
-function activateChangeEvents() {
-  document
-    .querySelector("#sort_by_selector")
-    .addEventListener("change", sortBySlector);
-  document
-    .querySelector("#filter_by_selector")
-    .addEventListener("change", filterBySelector);
-}
+// function activateChangeEvents() {
+//   document
+//     .querySelector("#sort_by_selector")
+//     .addEventListener("change", sortBySlector);
+//   document
+//     .querySelector("#filter_by_selector")
+//     .addEventListener("change", filterBySelector);
+// }
 
 ////////////////////////// helper - sort - variables //////////////////////////
 
@@ -198,7 +200,6 @@ function generateNewId() {
   return new Date().getTime();
 }
 
-
 ////////////////////////// update related functions //////////////////////////
 
 function update_btn_clicked(artist) {
@@ -238,7 +239,6 @@ async function update_artists_form_submitted(event) {
 
   await putUpdatedArtist(selectedArtist);
 }
-
 
 ////////////////////////// delete related functions //////////////////////////
 
