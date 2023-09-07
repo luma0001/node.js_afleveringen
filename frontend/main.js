@@ -79,7 +79,8 @@ function displayArtist(artist) {
 ////////////////////////// create artist functions //////////////////////////
 
 function new_artist_form_submitted(event) {
-event.preventDefault();  console.log("new artist form submitted");
+  event.preventDefault();
+  console.log("new artist form submitted");
 
   const form = event.target;
   const name = form.name.value;
@@ -164,14 +165,14 @@ function updateArtistForm(artist) {
   document.querySelector("#aritst_update_image_link").value = artist.image;
   document.querySelector("#aritst_update_birthdate").value = artist.birthdate;
   document.querySelector("#aritst_update_active_since").value =
-  artist.activeSince;
+    artist.activeSince;
   document.querySelector("#aritst_update_genres").value = artist.genres;
   document.querySelector("#aritst_update_lables").value = artist.labels;
   document.querySelector("#aritst_update_website").value = artist.website;
   document.querySelector("#aritst_update_description").value =
     artist.shortDescription;
-    
-    selectedArtist = artist;
+
+  selectedArtist = artist;
   //...den skal ikke altid være aktiv jo....
 }
 
@@ -188,18 +189,18 @@ async function update_artists_form_submitted(event) {
   selectedArtist.website = updateForm.website.value;
   selectedArtist.shortDescription = updateForm.description.value;
 
-  console.log(selectedArtist);
   await putUpdatedArtist(selectedArtist);
 }
 
 async function putUpdatedArtist(artist) {
+  console.log(selectedArtist);
   const updatedArtist = JSON.stringify(artist);
-  const response = await fetch(`${endpoint}/artists/${artist.id}`, {
+  const p = await fetch(`${endpoint}/artists/${artist.id}`, {
     method: "PUT",
     body: updatedArtist,
-    header: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" },
   });
-  if(response.ok) {
+  if (p.ok) {
     updateArtistsList();
   }
 }
