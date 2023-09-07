@@ -36,3 +36,15 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
+
+/* from https://www.w3schools.com/css/css_form.asp */
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input {
+  width: 100%;
+}
