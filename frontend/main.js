@@ -5,7 +5,7 @@
 //Vores funktioner skal være fri for states - applikationen som helhed skal ikke være statest per say.
 //Hvad kan kørrer uafhængit - lad os dele det op i mindre bidder på baggrund af dette...
 
-import { fetchArtists } from "./restFunctions.js";
+import { fetchArtists, postNewUser, deleteArtist } from "./restFunctions.js";
 
 window.addEventListener("load", initApp);
 
@@ -20,6 +20,8 @@ function initApp() {
   activateChangeEvents();
   displayAllArtists();
 }
+
+////////////////////////// Eventlisteners //////////////////////////
 
 function activateClickEvents() {
   //The submit button for create new artist
@@ -78,6 +80,8 @@ async function filterBySelector(event) {
     updateArtistsGrid();
   }
 }
+
+////////////////////////// Display related functions //////////////////////////
 
 function displayAllArtists() {
   updateArtistsList();
@@ -189,22 +193,22 @@ function generateNewId() {
   return new Date().getTime();
 }
 
-async function postNewUser(newArtist) {
-  const artistJson = JSON.stringify(newArtist);
-  const response = await fetch(`${endpoint}/artists`, {
-    method: "POST",
-    body: artistJson,
-    headers: { "Content-Type": "application/json" },
-  });
-  if (response.ok) {
-    // if success, update the users grid
-    // artists.push(newArtistObject);
-    updateArtistsList();
+// async function postNewUser(newArtist) {
+//   const artistJson = JSON.stringify(newArtist);
+//   const response = await fetch(`${endpoint}/artists`, {
+//     method: "POST",
+//     body: artistJson,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   if (response.ok) {
+//     // if success, update the users grid
+//     // artists.push(newArtistObject);
+//     updateArtistsList();
 
-    // and scroll to top
-    // scrollToTop();
-  }
-}
+//     // and scroll to top
+//     // scrollToTop();
+//   }
+// }
 
 ////////////////////////// update related functions //////////////////////////
 
@@ -267,11 +271,4 @@ function delete_btn_clicked(id) {
   deleteArtist(id);
 }
 
-async function deleteArtist(id) {
-  const response = await fetch(`${endpoint}/artists/${id}`, {
-    method: "DELETE",
-  });
-  if (response.ok) {
-    updateArtistsList();
-  }
-}
+export { updateArtistsList };
