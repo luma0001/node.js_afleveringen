@@ -40,6 +40,20 @@ async function postNewUser(newArtist) {
   }
 }
 
+// Updates the selected artist - send it to back end...
+async function putUpdatedArtist(artist) {
+  console.log(selectedArtist);
+  const updatedArtist = JSON.stringify(artist);
+  const promise = await fetch(`${endpoint}/artists/${artist.id}`, {
+    method: "PUT",
+    body: updatedArtist,
+    headers: { "Content-Type": "application/json" },
+  });
+  if (promise.ok) {
+    updateArtistsList();
+  }
+}
+
 // Deletes the aritst with the selected id.
 async function deleteArtist(id) {
   const response = await fetch(`${endpoint}/artists/${id}`, {
@@ -50,4 +64,4 @@ async function deleteArtist(id) {
   }
 }
 
-export { fetchArtists, postNewUser, deleteArtist };
+export { fetchArtists, postNewUser, putUpdatedArtist, deleteArtist };

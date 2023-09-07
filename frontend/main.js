@@ -5,7 +5,12 @@
 //Vores funktioner skal være fri for states - applikationen som helhed skal ikke være statest per say.
 //Hvad kan kørrer uafhængit - lad os dele det op i mindre bidder på baggrund af dette...
 
-import { fetchArtists, postNewUser, deleteArtist } from "./restFunctions.js";
+import {
+  fetchArtists,
+  postNewUser,
+  putUpdatedArtist,
+  deleteArtist,
+} from "./restFunctions.js";
 
 window.addEventListener("load", initApp);
 
@@ -193,22 +198,6 @@ function generateNewId() {
   return new Date().getTime();
 }
 
-// async function postNewUser(newArtist) {
-//   const artistJson = JSON.stringify(newArtist);
-//   const response = await fetch(`${endpoint}/artists`, {
-//     method: "POST",
-//     body: artistJson,
-//     headers: { "Content-Type": "application/json" },
-//   });
-//   if (response.ok) {
-//     // if success, update the users grid
-//     // artists.push(newArtistObject);
-//     updateArtistsList();
-
-//     // and scroll to top
-//     // scrollToTop();
-//   }
-// }
 
 ////////////////////////// update related functions //////////////////////////
 
@@ -250,18 +239,6 @@ async function update_artists_form_submitted(event) {
   await putUpdatedArtist(selectedArtist);
 }
 
-async function putUpdatedArtist(artist) {
-  console.log(selectedArtist);
-  const updatedArtist = JSON.stringify(artist);
-  const p = await fetch(`${endpoint}/artists/${artist.id}`, {
-    method: "PUT",
-    body: updatedArtist,
-    headers: { "Content-Type": "application/json" },
-  });
-  if (p.ok) {
-    updateArtistsList();
-  }
-}
 
 ////////////////////////// delete related functions //////////////////////////
 
