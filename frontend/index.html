@@ -8,9 +8,20 @@
   </head>
   <body>
     <main>
+      <button id="favorites_toggle">Show favorites</button>
+
       <header>THIS IS OUR HEADDER</header>
       <section id="filters_section">
         Filters
+        <label for="filter_by_selector">Filter By Genre</label>
+        <select id="filter_by_selector">
+          <option value="none" selected>-------</option>
+          <option value="rock">Rock</option>
+          <option value="pop">Pop</option>
+          <option value="funk">funk</option>
+          <option value="R&B">R&B</option>
+        </select>
+
         <label for="sort_by_selector">Sort By</label>
         <select id="sort_by_selector">
           <option value="none" selected>-------</option>
@@ -18,11 +29,6 @@
           <option value="longestActive">Active for longest</option>
           <option value="recentlyActive">Active for shortest</option>
           <option value="birthdates">Birthdate</option>
-        </select>
-        <label for="filter_by_selector">Filter By</label>
-        <select id="filter_by_selector">
-          <option value="none" selected>-------</option>
-          <option value="jazz">....</option>
         </select>
       </section>
       <section id="artists_overview_section" class="grid-container">
