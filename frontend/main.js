@@ -119,7 +119,9 @@ function updateArtistsGrid() {
 
 function displayArtist(artist) {
   const artistHTML =
-    /*html*/
+  /*html*/
+ 
+    
     `
     <article class="artists_object">
     <img class="grid_img" src="${artist.image}"/>
@@ -133,9 +135,11 @@ function displayArtist(artist) {
     <button class="update_btn">Update</button>
     <button class="delete_btn">Delete</button>
     <div class="mark_favorite_div">
-    <button class="favorites_checkbox">Favorite</button>
+    <button class="favorites_btn"></button>
      </div>
     </article>`;
+
+
   document
     .querySelector("#artists_overview_section")
     .insertAdjacentHTML("beforeend", artistHTML);
@@ -149,23 +153,16 @@ function displayArtist(artist) {
 
   document
     .querySelector(
-      "#artists_overview_section article:last-child .favorites_checkbox"
+      "#artists_overview_section article:last-child .favorites_btn"
     )
-    .addEventListener("change", () => changeFavoriteSatus(artist));
+    .addEventListener("click", () => changeFavoriteSatus(artist));
 
-  // try to style artists....fail
-  if (artist.isFavorite === true) {
-    console.log("fav artist");
-    console.log(artist.name);
-    // document.querySelector(".favorites_checkbox").checked;
-    document
-      .querySelector(".mark_favorite_div")
-      .classList.add("favoriteMarked");
-  }
 
-  //changes the checkbox if the artists is marked as favorites
-
-  //Checkbox for favorites! ...favorites: true/false.
+    //  if (artist.isFavorite === true) {
+    //    document.querySelector(".favorites_btn").textContent = "unfavorite";
+    //  } else {
+    //    document.querySelector(".favorites_btn").textContent = "favorite";
+    //  }
 }
 
 function changeFavoriteSatus(artist) {
