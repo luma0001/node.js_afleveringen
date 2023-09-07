@@ -1,9 +1,5 @@
 "use strict";
 
-// tænk over hvordan det bedst kan skildes ad
-// Data v. datahåmdtering. Fejl håndtering, caching af data, sortering/hjælp. Visning af atists mm. Eventlisteners mm.
-//Vores funktioner skal være fri for states - applikationen som helhed skal ikke være statest per say.
-//Hvad kan kørrer uafhængit - lad os dele det op i mindre bidder på baggrund af dette...
 
 import {
   fetchArtists,

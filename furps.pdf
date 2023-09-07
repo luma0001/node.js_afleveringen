@@ -1,24 +1,15 @@
 Features:
 
-The solution must be a program that allows the users to explore information about musicartists. 
+The following major requirements were all achived: 
+The solution had to be a program that allows the users to explore information about musicartists  
 The application must contain both a front and backend - connected by a REST API.
 The back end must contain Routes using endpoint for the following HTTP-methods: GET, POST, PUT & DELETE.
-
 The user must be able to get an artist based on a specific ID or all aritst at once. 
-The aritst objects must have following properties: name, birthdate, activeSince, genres, labels, website, image, shortDescription.
 
-Frontend wise the application should:
-- Have an interface implemented with JavaScript, HTML & CSS.
-- have functionalitites related to CRUD available to the user. 
-- Have a filter and sort function based on certain parameters.
-- Allow the user to mark a favorite artist, aswell the ability to see only their favorite. 
-- have its code devided into modules. 
-
-Both solutions must keep following in mind: 
-- High cohesion.
-- Low cupling.
-- Seperation of concerns. 
-
+The aritst objects had to have following properties: name, birthdate, activeSince, genres, labels, website, image, shortDescription.
+Futher more it was a requirement that the users were able to mark their favorite. Therefore the "isFavorite" attribute was added aswell. 
+It was a requirement that the user is able to toggle between a view of all aritst and a view of only some aritsts - the "isFavorite" attribute 
+made this feature easy to implement.  
 
 Usability: The application is made to be easy and quick to use. No buttons or other interactive elements are hidden from the user.
 Text is provided to explain what each button ect is for. Futher more the simple nature of the application should make it quick to navigate.  
@@ -33,4 +24,7 @@ Plus:
 As a part of the requirements both solutions had to keep following in mind: 
 - High cohesion.
 - Low cupling.
-- Seperation of concerns. 
+- Seperation of concerns.
+
+These steps were not met as satisfactory as one could have hoped. Functions were in large part broken down into single "actions", 
+and some modules were implemented in the frontend where it made sense. More could have easily been made if it had been done on the go and not in a "post-phase". 
