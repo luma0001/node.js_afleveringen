@@ -1,3 +1,11 @@
+import {
+  new_artist_form_submitted,
+  update_artists_form_submitted,
+  favorites_toggle_btn_clicked,
+  sortBySlector,
+  filterBySelector,
+} from "./main.js";
+
 function activateClickEvents() {
   //The submit button for create new artist
   document
@@ -7,6 +15,10 @@ function activateClickEvents() {
   document
     .querySelector("#update_arist_form")
     .addEventListener("submit", update_artists_form_submitted);
+
+  document
+    .querySelector("#favorites_toggle")
+    .addEventListener("click", favorites_toggle_btn_clicked);
 }
 
 function activateChangeEvents() {
