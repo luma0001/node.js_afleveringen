@@ -29,13 +29,13 @@ footer {
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 800px) {
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1200px) {
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
