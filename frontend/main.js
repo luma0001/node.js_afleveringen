@@ -58,8 +58,25 @@ function sortBySlector(event) {
   updateArtistsGrid();
 }
 
-function filterBySelector(event) {
+async function filterBySelector(event) {
   const filterSelector = event.target.value;
+
+  // refresh list by fetching!
+  await updateArtistsList();
+  if (filterSelector !== "none") {
+    artists = artists.filter(filterfunction);
+
+    function filterfunction(artist) {
+      for (const genre of artist.genres) {
+        if (genre === filterSelector) {
+          return artist;
+        }
+      }
+    }
+    console.table(artists);
+    //Only DOM no fetch
+    updateArtistsGrid();
+  }
 }
 
 function displayAllArtists() {
