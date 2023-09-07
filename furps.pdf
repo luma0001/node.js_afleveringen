@@ -1,0 +1,36 @@
+Features:
+
+The solution must be a program that allows the users to explore information about musicartists. 
+The application must contain both a front and backend - connected by a REST API.
+The back end must contain Routes using endpoint for the following HTTP-methods: GET, POST, PUT & DELETE.
+
+The user must be able to get an artist based on a specific ID or all aritst at once. 
+The aritst objects must have following properties: name, birthdate, activeSince, genres, labels, website, image, shortDescription.
+
+Frontend wise the application should:
+- Have an interface implemented with JavaScript, HTML & CSS.
+- have functionalitites related to CRUD available to the user. 
+- Have a filter and sort function based on certain parameters.
+- Allow the user to mark a favorite artist, aswell the ability to see only their favorite. 
+- have its code devided into modules. 
+
+Both solutions must keep following in mind: 
+- High cohesion.
+- Low cupling.
+- Seperation of concerns. 
+
+
+Usability: The application is made to be easy and quick to use. No buttons or other interactive elements are hidden from the user.
+Text is provided to explain what each button ect is for. Futher more the simple nature of the application should make it quick to navigate.  
+
+Reliablity: The page is running reliable. The data supplied by the user is stored and showed without corruption.  
+
+Performance:
+From the moment the user engages with any CRUD-related activities on the frontend until the updated page is shown may take a second give or take.
+This is not unreasonable, as the user is simply looking for information. However it may be a short moment of anoyance which could make the user choose a competing webapplication.
+
+Plus:
+As a part of the requirements both solutions had to keep following in mind: 
+- High cohesion.
+- Low cupling.
+- Seperation of concerns. 
