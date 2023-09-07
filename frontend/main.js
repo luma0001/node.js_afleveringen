@@ -29,27 +29,6 @@ function initApp() {
   displayAllArtists();
 }
 
-// function favorites_toggle_btn_clicked() {
-//   toggleFavoriteView();
-//   changeToggleFavoriteBtn();
-//   updateArtistsGrid();
-// }
-
-// function toggleFavoriteView() {
-//   if (viewFavorites === false) {
-//     viewFavorites = true;
-//   } else {
-//     viewFavorites = false;
-//   }
-// }
-
-// function changeToggleFavoriteBtn() {
-//   if (viewFavorites === false) {
-//     document.querySelector("#favorites_toggle").textContent = "Show Favorites";
-//   } else {
-//     document.querySelector("#favorites_toggle").textContent = "Show All";
-//   }
-// }
 
 ////////////////////////// helper - sort - variables //////////////////////////
 
@@ -119,9 +98,8 @@ function updateArtistsGrid() {
 
 function displayArtist(artist) {
   const artistHTML =
-  /*html*/
- 
-    
+    /*html*/
+
     `
     <article class="artists_object">
     <img class="grid_img" src="${artist.image}"/>
@@ -135,10 +113,9 @@ function displayArtist(artist) {
     <button class="update_btn">Update</button>
     <button class="delete_btn">Delete</button>
     <div class="mark_favorite_div">
-    <button class="favorites_btn"></button>
+    <button class="favorites_btn">${favoriteTxt(artist)}</button>
      </div>
     </article>`;
-
 
   document
     .querySelector("#artists_overview_section")
@@ -156,13 +133,18 @@ function displayArtist(artist) {
       "#artists_overview_section article:last-child .favorites_btn"
     )
     .addEventListener("click", () => changeFavoriteSatus(artist));
+}
 
-
-    //  if (artist.isFavorite === true) {
-    //    document.querySelector(".favorites_btn").textContent = "unfavorite";
-    //  } else {
-    //    document.querySelector(".favorites_btn").textContent = "favorite";
-    //  }
+function favoriteTxt(artist) {
+  let text;
+  if (artist.isFavorite === true) {
+    //  document.querySelector(".favorites_btn").textContent = "unfavorite";
+    text = "unfavorite";
+  } else {
+    //  document.querySelector(".favorites_btn").textContent = "favorite";
+    text = "favorite";
+  }
+  return text;
 }
 
 function changeFavoriteSatus(artist) {
