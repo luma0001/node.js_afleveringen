@@ -21,6 +21,7 @@ const endpoint = "http://localhost:3000";
 // Er det her fy-fy! Globale const's er ok, men globale let's.... ups.
 let artists;
 let selectedArtist;
+let viewFavorites = false;
 
 function initApp() {
   activateClickEvents();
@@ -28,27 +29,27 @@ function initApp() {
   displayAllArtists();
 }
 
-////////////////////////// Eventlisteners //////////////////////////
+function favorites_toggle_btn_clicked() {
+  toggleFavoriteView();
+  changeToggleFavoriteBtn();
+  updateArtistsGrid();
+}
 
-// function activateClickEvents() {
-//   //The submit button for create new artist
-//   document
-//     .querySelector("#create_artist_form")
-//     .addEventListener("submit", new_artist_form_submitted);
-//   //The submit button for update aritst
-//   document
-//     .querySelector("#update_arist_form")
-//     .addEventListener("submit", update_artists_form_submitted);
-// }
+function toggleFavoriteView() {
+  if (viewFavorites === false) {
+    viewFavorites = true;
+  } else {
+    viewFavorites = false;
+  }
+}
 
-// function activateChangeEvents() {
-//   document
-//     .querySelector("#sort_by_selector")
-//     .addEventListener("change", sortBySlector);
-//   document
-//     .querySelector("#filter_by_selector")
-//     .addEventListener("change", filterBySelector);
-// }
+function changeToggleFavoriteBtn() {
+  if (viewFavorites === false) {
+    document.querySelector("#favorites_toggle").textContent = "Show Favorites";
+  } else {
+    document.querySelector("#favorites_toggle").textContent = "Show All";
+  }
+}
 
 ////////////////////////// helper - sort - variables //////////////////////////
 
@@ -106,7 +107,13 @@ function updateArtistsGrid() {
   document.querySelector("#artists_overview_section").innerHTML = "";
   // artists.forEach(displayArtist);
   for (const artist of artists) {
-    displayArtist(artist);
+    if (viewFavorites === true) {
+      if (artist.isFavorite === true) {
+        displayArtist(artist);
+      }
+    } else {
+      displayArtist(artist);
+    }
   }
 }
 
@@ -125,7 +132,9 @@ function displayArtist(artist) {
     <div>Description: ${artist.shortDescription}</div>
     <button class="update_btn">Update</button>
     <button class="delete_btn">Delete</button>
+    <div class="mark_favorite_div">
     <input class="favorites_checkbox" type="checkbox" value="favorite">
+    </div>
     </article>`;
   document
     .querySelector("#artists_overview_section")
@@ -138,7 +147,39 @@ function displayArtist(artist) {
     .querySelector("#artists_overview_section article:last-child .delete_btn")
     .addEventListener("click", () => delete_btn_clicked(artist.id));
 
+  document
+    .querySelector(
+      "#artists_overview_section article:last-child .favorites_checkbox"
+    )
+    .addEventListener("change", () => changeFavoriteSatus(artist));
+
+  // // try to style artists....fail
+  // if (artist.isFavorite === true) {
+  //   console.log("fav artist");
+  //   console.log(artist.name);
+  //   // document.querySelector(".favorites_checkbox").checked;
+  //   document
+  //     .querySelector(".mark_favorite_div")
+  //     .classList.add("favoriteMarked");
+  // }
+
+  //changes the checkbox if the artists is marked as favorites
+
   //Checkbox for favorites! ...favorites: true/false.
+}
+
+function changeFavoriteSatus(artist) {
+  // preventDefault();
+  if (artist.isFavorite === false) {
+    artist.isFavorite = true;
+  } else {
+    artist.isFavorite = false;
+  }
+  updateArtistFavoriteStatus(artist);
+}
+
+async function updateArtistFavoriteStatus(artist) {
+  await putUpdatedArtist(artist);
 }
 
 ////////////////////////// create artist functions //////////////////////////
@@ -189,6 +230,7 @@ function createNewArtistsObject(
     labels,
     website,
     shortDescription,
+    isFavorite: false,
   };
 
   //* Bedre navngivning...
@@ -248,4 +290,11 @@ function delete_btn_clicked(id) {
   deleteArtist(id);
 }
 
-export { updateArtistsList };
+export {
+  updateArtistsList,
+  favorites_toggle_btn_clicked,
+  new_artist_form_submitted,
+  update_artists_form_submitted,
+  sortBySlector,
+  filterBySelector,
+};
