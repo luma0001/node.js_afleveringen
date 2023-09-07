@@ -1,16 +1,23 @@
 "use strict";
 
+// tænk over hvordan det bedst kan skildes ad
+// Data v. datahåmdtering. Fejl håndtering, caching af data, sortering/hjælp. Visning af atists mm. Eventlisteners mm.
+//Vores funktioner skal være fri for states - applikationen som helhed skal ikke være statest per say.
+//Hvad kan kørrer uafhængit - lad os dele det op i mindre bidder på baggrund af dette...
+
 import { fetchArtists } from "./restFunctions.js";
 
 window.addEventListener("load", initApp);
 
 ////////////////////////// global variables //////////////////////////
 const endpoint = "http://localhost:3000";
+// Er det her fy-fy! Globale const's er ok, men globale let's.... ups.
 let artists;
 let selectedArtist;
 
 function initApp() {
   activateClickEvents();
+  activateChangeEvents();
   displayAllArtists();
 }
 
@@ -23,6 +30,36 @@ function activateClickEvents() {
   document
     .querySelector("#update_arist_form")
     .addEventListener("submit", update_artists_form_submitted);
+}
+
+function activateChangeEvents() {
+  document
+    .querySelector("#sort_by_selector")
+    .addEventListener("change", sortBySlector);
+  document
+    .querySelector("#filter_by_selector")
+    .addEventListener("change", filterBySelector);
+}
+
+////////////////////////// helper - sort - variables //////////////////////////
+
+function sortBySlector(event) {
+  const sortSelector = event.target.value;
+  console.log(sortSelector);
+  if (sortSelector === "names") {
+    artists.sort((high, low) => high.name.localeCompare(low.name));
+  } else if (sortSelector === "longestActive") {
+    artists.sort((high, low) => high.activeSince - low.activeSince);
+  } else if (sortSelector === "recentlyActive") {
+    artists.sort((high, low) => low.activeSince - high.activeSince);
+  } else if (sortSelector === "birthdates") {
+    artists.sort((high, low) => high.activeSince - low.activeSince);
+  }
+  updateArtistsGrid();
+}
+
+function filterBySelector(event) {
+  const filterSelector = event.target.value;
 }
 
 function displayAllArtists() {
@@ -50,14 +87,14 @@ function displayArtist(artist) {
     /*html*/
     `
     <article class="artists_object">
-    <img src=${artist.image}/>
-    Name:${artist.name}
-    Date of Birth:${artist.birthdate}
-    Active since:${artist.activeSince}
-    Genres:${artist.genres}
+    <img class="grid_img" src="${artist.image}"/>
+    <p>Name: ${artist.name}</p>
+    <p>Date of Birth: ${artist.birthdate}</p>
+    <p>Active since: ${artist.activeSince}</p>
+    Genres: ${artist.genres}
     Lables: ${artist.labels}
-    Website:${artist.website}
-    Description:${artist.shortDescription}
+    <p>Website: ${artist.website}</p>
+    <div>Description: ${artist.shortDescription}</div>
     <button class="update_btn">Update</button>
     <button class="delete_btn">Delete</button>
     <input class="favorites_checkbox" type="checkbox" value="favorite">
