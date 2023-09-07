@@ -42,7 +42,6 @@ async function postNewUser(newArtist) {
 
 // Updates the selected artist - send it to back end...
 async function putUpdatedArtist(artist) {
-  console.log(selectedArtist);
   const updatedArtist = JSON.stringify(artist);
   const promise = await fetch(`${endpoint}/artists/${artist.id}`, {
     method: "PUT",
