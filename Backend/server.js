@@ -53,6 +53,7 @@ app.post("/artists", async (request, response) => {
   const artists = await JSON.parse(artistsJSON);
   const newAritst = request.body;
   newAritst.id = new Date().getTime();
+
   console.log(newAritst);
   artists.push(newAritst);
   console.log(artists);
@@ -82,6 +83,7 @@ app.put("/artists/:artistId", async (request, response) => {
   formerArtist.website = body.website;
   formerArtist.image = body.image;
   formerArtist.shortDescription = body.shortDescription;
+  formerArtist.isFavorite = body.isFavorite;
 
   if (!formerArtist) {
     response.status(404).json("Error: User does not exist");
@@ -95,11 +97,10 @@ app.put("/artists/:artistId", async (request, response) => {
 //   response.json("PUT FAVORITES");
 // });
 
-app.delete("/artists/:artistId", async(request, response) => {
-  
+app.delete("/artists/:artistId", async (request, response) => {
   const artistsJSON = await fs.readFile("artists.json");
   const artists = await JSON.parse(artistsJSON);
-  
+
   const id = Number(request.params.artistId);
   const artist = artists.find((artist) => artist.id === id);
 
@@ -108,8 +109,7 @@ app.delete("/artists/:artistId", async(request, response) => {
   if (!artist) {
     response.status(404).json("Error: user does not exists");
   } else {
-  
-    fs.writeFile("artists.json", JSON.stringify(artists))
+    fs.writeFile("artists.json", JSON.stringify(artists));
     response.json(artists);
   }
 });
